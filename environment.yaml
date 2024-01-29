@@ -1,0 +1,17 @@
+name: iap-tutorial
+channels:
+  - conda-forge
+  - nvidia
+  - pytorch
+dependencies:
+  - c-compiler
+  - python=3.8
+  - pip=23.1
+  - pytorch-cuda=11.6
+  - pytorch=1.13
+  - pip:
+     - bilby==2.0.0
+     - lightning==1.8.6
+     - pyro-ppl==1.8.0
+     - matplotlib
+
