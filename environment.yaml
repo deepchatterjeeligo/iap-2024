@@ -1,17 +1,18 @@
 name: iap-tutorial
 channels:
   - conda-forge
-  - nvidia
-  - pytorch
+  - defaults
 dependencies:
   - c-compiler
-  - python=3.8
-  - pip=23.1
-  - pytorch-cuda=11.6
-  - pytorch=1.13
+  - ipykernel
+  - typing-extensions
+  - pip
+  - python=3.9
   - pip:
-     - bilby==2.0.0
-     - lightning==1.8.6
-     - pyro-ppl==1.8.0
-     - matplotlib
-
+      - https://download.pytorch.org/whl/cu116/torch-1.13.0%2Bcu116-cp39-cp39-linux_x86_64.whl#sha256=129d95249fe20ccd83d156323a5e2a6aba83e18841a00ac724e270ad806dd493
+      - bilby
+      - matplotlib
+      - websockets
+      - pydantic==1.10
+      - lightning==1.8.6
+      - pyro-ppl==1.8.0
