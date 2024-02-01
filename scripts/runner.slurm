@@ -1,15 +1,14 @@
 #!/bin/bash
-#SBATCH --partition=submit-gpu1080
+#SBATCH --reservation=workshop1080_batch
 #SBATCH --nodes=1
 #SBATCH --job-name=lfi-demo
 #SBATCH --output=%x.out
 #SBATCH --error=%x.err
 #SBATCH --time=10:00
 #SBATCH --mem=10G
-#SBATCH --ntasks-per-node=4
-#SBATCH --gres=gpu:4
-#SBATCH --cpus-per-gpu=2
+#SBATCH --ntasks-per-node=3
+#SBATCH --gres=gpu:3
 
-CONTAINER_PATH="/data/submit/deep1018/iap-tutorial.sif"
+CONTAINER_PATH="/work/submit/submit-software/singularity/submit-workshop-jan-24/image/"
 
 time srun singularity run --bind="${CWD}" --nv "${CONTAINER_PATH}" python main.py
