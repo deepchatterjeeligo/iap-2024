@@ -96,14 +96,11 @@ class PPPlotCallback(pl.Callback):
 
     def on_test_end(self, trainer, pl_module):
         import bilby, warnings
-        if len(trainer.device_ids) > 1:
-            rank = torch.distributed.get_rank()
-            if rank != 0:
-                return
+        rank = torch.distributed.get_rank()
         with warnings.catch_warnings():
             warnings.simplefilter('ignore')
             bilby.result.make_pp_plot(pl_module.test_results, save=True,
-                                      filename='pp-plot.png', keys=['m', 'c'])
+                                      filename=f'pp-plot-{rank}.png', keys=['m', 'c'])
         pl_module.test_results.clear()
         del bilby, warnings
 
@@ -117,7 +114,7 @@ def main():
     prior = dict(
         m=Uniform(-3, 3, name='m', latex_label='m'),
         c=Uniform(-3, 3, name='c', latex_label='c'))
-    model = MADE(input_dim, context_dim, hidden_dims, prior, learning_rate=5e-3)
+    model = MADE(input_dim, context_dim, hidden_dims, prior, learning_rate=1e-3 * torch.cuda.device_count())
     simulation_data = LinearRegressionDataModule(prior, batch_size=batch_size, num_points=num_points)
 
     trainer = pl.Trainer(

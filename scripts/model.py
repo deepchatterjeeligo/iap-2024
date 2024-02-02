@@ -76,13 +76,10 @@ class MADE(pl.LightningModule):
         return loss
 
     def test_step(self, batch, batch_idx):
-        if len(self.trainer.device_ids) > 1:
-            rank = torch.distributed.get_rank()
-            if rank == 0:
-                theta, data = batch
-                samples = self.flow.condition(data).sample([2000])
-                res = cast_as_bilby_result(samples, theta[0], self.prior)
-                self.test_results.append(res)
+        theta, data = batch
+        samples = self.flow.condition(data).sample([2000])
+        res = cast_as_bilby_result(samples, theta[0], self.prior)
+        self.test_results.append(res)
 
     def configure_optimizers(self):
         parameters = self.transform.parameters()
