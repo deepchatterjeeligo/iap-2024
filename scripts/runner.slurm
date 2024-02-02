@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --reservation=workshop1080_batch
+#SBATCH --partition=submit-gpu1080
 #SBATCH --nodes=1
 #SBATCH --job-name=lfi-demo
 #SBATCH --output=%x.out
