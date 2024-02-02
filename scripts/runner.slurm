@@ -11,4 +11,4 @@
 
 CONTAINER_PATH="/work/submit/submit-software/singularity/submit-workshop-jan-24/image/"
 
-time srun singularity run --bind="${CWD}" --nv "${CONTAINER_PATH}" python main.py
+time srun singularity run --bind="${SLURM_SUBMIT_DIR}" --nv "${CONTAINER_PATH}" python main.py
